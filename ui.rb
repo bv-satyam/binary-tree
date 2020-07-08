@@ -1,9 +1,20 @@
-constants_file = './constants.rb'
-require constants_file if File.file? constants_file
-
 class UI
   def initialize()
     @btree = nil
+  end
+
+  module CHOICES
+    ADD_ELEMENT = "1"
+    LARGEST_ELEMENT = "2"
+    SMALLEST_ELEMENT = "3"
+    INORDER_TRAVERSAL = "4"
+    PREORDER_TRAVERSAL = "5"
+    POSTORDER_TRAVERSAL = "6"
+    LEVEL_ORDER_TRAVERSAL = "7"
+    SEARCH = "8"
+    DELETE = "9"
+    ROOT_TO_LEAF_PATHS = "10"
+    QUIT = "quit"
   end
 
   def show_options
@@ -29,28 +40,28 @@ class UI
       puts "Input provided: #{input_option}"
       puts "Output:"
       case input_option
-      when QUIT
+      when CHOICES::QUIT
         quit
         break
-      when ADD
+      when CHOICES::ADD_ELEMENT
         add
-      when LARGEST_ELEMENT
-        puts @btree.find_max
-      when SMALLEST_ELEMENT
-        puts @btree.find_min
-      when INORDER_Traversal
+      when CHOICES::LARGEST_ELEMENT
+        puts @btree.find_max(@btree.root)
+      when CHOICES::SMALLEST_ELEMENT
+        puts @btree.find_min(@btree.root)
+      when CHOICES::INORDER_TRAVERSAL
         p @btree.inorder_traversal(@btree.root)
-      when PREORDER_Traversal
+      when CHOICES::PREORDER_TRAVERSAL
         p @btree.preorder_traversal(@btree.root)
-      when POSTORDER_Traversal
+      when CHOICES::POSTORDER_TRAVERSAL
         p @btree.postorder_traversal(@btree.root)
-      when LEVEL_ORDER_Traversal
+      when CHOICES::LEVEL_ORDER_TRAVERSAL
         p @btree.level_traversal(@btree.root)
-      when SEARCH
+      when CHOICES::SEARCH
         search
-      when DELETE
+      when CHOICES::DELETE
         delete
-      when ROOT_TO_LEAF_PATHS
+      when CHOICES::ROOT_TO_LEAF_PATHS
         @btree.print_all_paths
       else
         puts "Invalid Input"
@@ -104,7 +115,7 @@ class UI
     else
       puts "Invalid Input"
     end
-  end 
+  end
 
   def delete
     puts "Enter a value to remove:"
